@@ -1,4 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+const deviceHeight = Dimensions.get('window').height;
 
 export const styles = StyleSheet.create({
     container: {
@@ -13,6 +15,24 @@ export const styles = StyleSheet.create({
         alignItems: 'flex-end',
         borderBottomColor: '#bbb',
         borderBottomWidth: 1,
+    },
+    menuDropdown: {
+        flex: 2,
+        paddingTop: 60,
+        paddingLeft: 25,
+        width: 300,
+        height: deviceHeight,
+        backgroundColor: 'gray',
+        position: 'absolute',
+        left: 0,
+    }, 
+    menuText: {
+        marginBottom: 20,
+        color: 'white',
+        fontSize: 24,
+    },
+    menuContainer: {
+        position: 'relative',
     },
     headerLogoText: {
         marginBottom: 5,
@@ -36,7 +56,7 @@ export const styles = StyleSheet.create({
     },  
     main: {
         width: '100%',
-        height: '100%',
+        height: deviceHeight * 0.9,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',

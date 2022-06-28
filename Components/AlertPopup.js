@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Animated} from 'react-native';
 
-const FadeInView = ({ popup, style, children }) => {
+const FadeView = ({ popup, style, children }) => {
     const [fade, setFade] = useState({
         fadeAnimation: new Animated.Value(0),
         popup: popup
@@ -43,4 +43,4 @@ const FadeInView = ({ popup, style, children }) => {
     );
 };
 
-export default FadeInView;
+export default FadeView;

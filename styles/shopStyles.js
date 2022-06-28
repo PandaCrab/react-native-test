@@ -2,12 +2,11 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
     container: {
-        padding: 12,
+        marginTop: 15,
         width: '100%',
         display: 'flex',
         alignContent: 'space-around',
         flexWrap: 'wrap',
-        height: '100%'
     },
     loader: {
         marginTop: 25,
@@ -15,15 +14,40 @@ export const styles = StyleSheet.create({
     cardWrapper: {
         padding: 6,
         marginBottom: 5,
-        width: 150,
-        height: 200,
+        marginRight: 5,
+        width: 175,
+        height: 220,
         display: 'flex',
-        flexDirection: 'row',
+        flexDirection: 'column',
         borderWidth: 1,
     },
-    cardImage: {
-        width: 150,
-        height: 200,
+    infoWrapper: {
+        height: 180,
+        borderBottomWidth: 1,
+        borderBottomColor: '#bbbbbb'
+    }, 
+    cardInfo: {
+        width: '100%',
+        display: 'flex',
+        alignItems: 'flex-start',
+    },
+    priceColorWrapper: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignContent: 'space-between'
+    }, 
+    price: {
+        alignSelf: 'flex-end'
+    },
+    addToCartBtn: {
+        marginTop: 5,
+        width: 20,
+        height: 20,
+        borderRadius: 50,
+        backgroundColor: 'green',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
     },  
     errorPopup: {
         height: 40,
