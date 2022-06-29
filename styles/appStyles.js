@@ -15,23 +15,13 @@ export const styles = StyleSheet.create({
         alignItems: 'flex-end',
         borderBottomColor: '#bbb',
         borderBottomWidth: 1,
-    },
-    menuDropdown: {
-        flex: 2,
-        paddingTop: 60,
-        paddingLeft: 25,
-        width: 300,
-        height: deviceHeight,
-        backgroundColor: 'gray',
-        position: 'absolute',
-        left: 0,
     }, 
     menuText: {
         marginBottom: 20,
         color: 'white',
         fontSize: 24,
     },
-    menuContainer: {
+    cartContainer: {
         position: 'relative',
     },
     headerLogoText: {
@@ -48,7 +38,7 @@ export const styles = StyleSheet.create({
         marginRight: 'auto',
         fontSize: 18
     }, 
-    menuButton: {
+    cartButton: {
         marginTop: 10,
         marginRight: 15,
         width: 25,

@@ -49,19 +49,4 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },  
-    errorPopup: {
-        height: 40,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'rgba(255, 0, 0, 0.4)',
-        borderRadius: 8,
-        borderWidth: 1,
-        borderColor: 'red',
-        position: 'absolute',
-        top: -15,
-        left: 15,
-        right: 15,
-        zIndex: 1000
-    }
 });

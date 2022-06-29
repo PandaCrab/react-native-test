@@ -1,40 +1,38 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Text, View, Image, TouchableHighlight } from 'react-native';
 import ShopScreen from './screens/Shop';
+import { Provider } from 'react-redux';
+import Icon from 'react-native-vector-icons/EvilIcons';
 
 import { styles } from './styles/appStyles';
+import { store } from './redux/store';
 
 export default function App() {
-  const [dropdown, setDropdown] = useState(false);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <View style={styles.headerLogoText}>
-          <Image 
-            source={require('./public/panda-logo-poly.png')}
-            style={styles.logo} />
-          <Text style={styles.headerText}>Panda's shop</Text>
-          <TouchableHighlight onPress={() => setDropdown(!dropdown)} style={styles.manuContainer}>
-              <Image
-                source={require('./public/menu-button.png')}
-                style={styles.menuButton} />
-          </TouchableHighlight>
+    <Provider store={store}>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <View style={styles.headerLogoText}>
+            <Image 
+              source={require('./assets/panda-logo-poly.png')}
+              style={styles.logo} />
+            <Text style={styles.headerText}>Panda's shop</Text>
+            <TouchableHighlight style={styles.cartContainer}>
+              <Text style={styles.cartButton}>
+                <Icon 
+                  style={{ fontSize: 25 }}
+                  name="cart" />
+              </Text>
+            </TouchableHighlight>
+          </View>
         </View>
-      </View>
-      { dropdown && ( 
-        <View style={styles.menuDropdown}>
-          <Text style={styles.menuText}>Element1</Text>
-          <Text style={styles.menuText}>Element2</Text>
-          <Text style={styles.menuText}>Element3</Text>
-          <Text style={styles.menuText}>Element4</Text>
+        <View style={styles.main}> 
+          <ShopScreen />
         </View>
-      )}
-      <View style={styles.main}> 
-        <ShopScreen />
+        <StatusBar style="auto" />
       </View>
-      <StatusBar style="auto" />
-    </View>
+    </Provider>
   );
 };

@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { Animated} from 'react-native';
+import { Animated, Text } from 'react-native';
 
-const FadeView = ({ popup, style, children }) => {
+import { styles } from '../styles/AlertPopupStyles';
+
+const AlertPopup = ({ error, success, children }) => {
     const [fade, setFade] = useState({
         fadeAnimation: new Animated.Value(0),
-        popup: popup
+        popup: {
+            error: error,
+            success: success
+        }
     });
 
     const fadeIn = () => {
         Animated.timing(fade.fadeAnimation, {
         toValue: 1,
-        duration: 1000,
+        duration: 500,
         useNativeDriver: true
         }).start();
     };
@@ -18,7 +23,7 @@ const FadeView = ({ popup, style, children }) => {
     fadeOut = () => {
         Animated.timing(fade.fadeAnimation, {
         toValue: 0,
-        duration: 1000,
+        duration: 500,
         useNativeDriver: true
         }).start();
     };
@@ -33,14 +38,22 @@ const FadeView = ({ popup, style, children }) => {
 
     return (
         <Animated.View
-            style={{
-                ...style,
-                opacity: fade.fadeAnimation,
-            }}
+            style={ success 
+                ? {
+                    ...styles.successPopup,
+                    opacity: fade.fadeAnimation
+                } : {
+                    ...styles.errorPopup,
+                    opacity: fade.fadeAnimation
+                }}
         >
-            {children}
+            {success ? (
+                <Text style={styles.alertText}>{success}</Text>
+            ) : (
+                <Text style={styles.alertText}>{error}</Text>
+            )}
         </Animated.View>
     );
 };
 
-export default FadeView;
+export default AlertPopup;
