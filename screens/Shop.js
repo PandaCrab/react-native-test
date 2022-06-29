@@ -1,10 +1,10 @@
-import { Text, ActivityIndicator, FlatList, TouchableHighlight } from 'react-native';
+import { Text, View, ActivityIndicator, FlatList } from 'react-native';
 import { useEffect, useState } from 'react';
 
 import Item from '../components/Item';
+import AlertPopup from '../components/AlertPopup';
 
 import { styles } from '../styles/shopStyles';
-import AlertPopup from '../components/AlertPopup';
 
 const ShopScreen = () => {
     const [stuffs, setStuffs] = useState([]);
@@ -13,7 +13,7 @@ const ShopScreen = () => {
     const [isLoading, setLoading] = useState(true);
 
     const renderItem = ({item}) => (
-        <Item item={item} onPress={() => setSuccess('Add to order')} />
+        <Item item={item} buyBtn/>
     )
 
     const fetchData = async() => {
@@ -24,7 +24,6 @@ const ShopScreen = () => {
 
             if(response.ok) {
                 await setStuffs(data);
-                setSuccess('Response is ok')
                 setTimeout(() => setLoading(false), 500);
             }
         } catch (error) {
@@ -38,7 +37,7 @@ const ShopScreen = () => {
     }, []);
 
     return (
-        <>
+        <View style={styles.container}>
             {error || success && (
                 <AlertPopup 
                     error={error}
@@ -59,7 +58,7 @@ const ShopScreen = () => {
                     keyExtractor={item => item.id}
                 />
             )}
-        </>
+        </View>
     );
 };
 

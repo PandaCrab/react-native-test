@@ -4,7 +4,10 @@ const deviceHeight = Dimensions.get('window').height;
 
 export const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        height: deviceHeight,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
         backgroundColor: '#fff',
     },
     header: {
@@ -21,19 +24,14 @@ export const styles = StyleSheet.create({
         color: 'white',
         fontSize: 24,
     },
-    cartContainer: {
-        position: 'relative',
-    },
-    headerLogoText: {
-        marginBottom: 5,
+    logoContainer: {
+        marginTop: 50,
         width: '100%',
-        height: 40,
         display: 'flex',
-        flexDirection: 'row',
         alignItems: 'center',
         textAlign: 'center'
     },
-    headerText: {
+    welcomText: {
         marginLeft: 'auto',
         marginRight: 'auto',
         fontSize: 18
@@ -54,7 +52,19 @@ export const styles = StyleSheet.create({
     },
     logo: {
         marginLeft: 10,
-        width: 40,
-        height: 40,
+        width: 100,
+        height: 100,
+    },
+    badge: {
+        width: 15, 
+        height: 15, 
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#ed574c',
+        borderRadius: 50, 
+        position: 'absolute',
+        top: 5,
+        right: 3,
     }
 });

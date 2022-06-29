@@ -1,38 +1,55 @@
-import React, { useState } from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { Text, View, Image, TouchableHighlight } from 'react-native';
-import ShopScreen from './screens/Shop';
-import { Provider } from 'react-redux';
+import React from 'react';
 import Icon from 'react-native-vector-icons/EvilIcons';
+import { View, Text,TouchableHighlight } from 'react-native';
+import { Provider } from 'react-redux';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
-import { styles } from './styles/appStyles';
+import HomeScreen from './screens/Home';
+import ShopScreen from './screens/Shop';
+import ShoppingCartScreen from './screens/ShoppingCart';
 import { store } from './redux/store';
 
+import { styles } from './styles/appStyles';
+
+const cart = () => {
+  const select = useSelector(state => state.order.clientOrder);
+
+  const navigation = useNavigation();
+
+  return (
+    <View style={{ position: 'relative', width: 30, height: 30 }}>
+      <TouchableHighlight onPress={() => navigation.navigate('ShoppingCart')}>
+        <Text style={styles.cartButton}>
+          <Icon 
+            style={{ fontSize: 25 }}
+            name="cart" />
+        </Text>
+      </TouchableHighlight>
+        {select.length ? (
+          <View style={styles.badge}>
+              <Text style={{ color: 'white', fontSize: 10 }}>
+                { select.length }
+              </Text>
+          </View>
+        ) : null}
+    </View>
+  )
+}
+
 export default function App() {
+  const Stack = createNativeStackNavigator();
 
   return (
     <Provider store={store}>
-      <View style={styles.container}>
-        <View style={styles.header}>
-          <View style={styles.headerLogoText}>
-            <Image 
-              source={require('./assets/panda-logo-poly.png')}
-              style={styles.logo} />
-            <Text style={styles.headerText}>Panda's shop</Text>
-            <TouchableHighlight style={styles.cartContainer}>
-              <Text style={styles.cartButton}>
-                <Icon 
-                  style={{ fontSize: 25 }}
-                  name="cart" />
-              </Text>
-            </TouchableHighlight>
-          </View>
-        </View>
-        <View style={styles.main}> 
-          <ShopScreen />
-        </View>
-        <StatusBar style="auto" />
-      </View>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Home" screenOptions={{ headerTitleAlign: 'center', headerRight: cart }}>
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Shop" component={ShopScreen} />
+          <Stack.Screen name="ShoppingCart" component={ShoppingCartScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
     </Provider>
   );
 };
