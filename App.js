@@ -9,9 +9,10 @@ import { useSelector } from 'react-redux';
 import HomeScreen from './screens/Home';
 import ShopScreen from './screens/Shop';
 import ShoppingCartScreen from './screens/ShoppingCart';
+import SuccessOrderScreen from './screens/SuccessOrderScreen';
 import { store } from './redux/store';
 
-import { styles } from './styles/appStyles';
+import { styles } from './styles/CartStyles';
 
 const cart = () => {
   const select = useSelector(state => state.order.clientOrder);
@@ -20,7 +21,7 @@ const cart = () => {
 
   return (
     <View style={{ position: 'relative', width: 30, height: 30 }}>
-      <TouchableHighlight onPress={() => navigation.navigate('ShoppingCart')}>
+      <TouchableHighlight style={styles.cartWrapper} onPress={() => navigation.navigate('ShoppingCart')}>
         <Text style={styles.cartButton}>
           <Icon 
             style={{ fontSize: 25 }}
@@ -48,6 +49,7 @@ export default function App() {
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Shop" component={ShopScreen} />
           <Stack.Screen name="ShoppingCart" component={ShoppingCartScreen} />
+          <Stack.Screen name="SuccessOrder" component={SuccessOrderScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

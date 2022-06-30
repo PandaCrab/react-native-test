@@ -4,28 +4,28 @@ import Icon from 'react-native-vector-icons/EvilIcons';
 
 import { deleteFromOrder, inOrder } from '../redux/ducks/stuff';
 
-import { styles } from '../styles/shopStyles';
+import { styles } from '../styles/ItemStyles';
 
-const item = ({item, deleteBtn, buyBtn}) => {
+const item = ({item, deleteBtn, cartScreen, buyBtn}) => {
     const dispatch = useDispatch();
     const select = useSelector(state => state.order.clientOrder);
 
     return (
-        <View key={item.id} style={styles.cardWrapper}>
-            <View style={styles.infoWrapper}>
+        <View key={item.id} style={cartScreen ? styles.cartCardWrapper : styles.cardWrapper}>
+            <View style={cartScreen ? styles.cartInfoWrapper : styles.infoWrapper}>
                 <Image
                     style={styles.image}
                     source={{ 
                         uri: item.imgUrl,
-                        width: 100,
-                        height: 120
+                        width: cartScreen ? 25 : 100,
+                        height: cartScreen ? 40 : 120
                     }}
                     />
-                <View style={styles.cardInfo}>
-                    <Text>{ item.name }</Text>
+                <View style={cartScreen ? styles.cartCardInfo : styles.cardInfo}>
+                    <Text style={cartScreen ? styles.cartItemName : styles.itemName}>{ item.name }</Text>
                     <View style={styles.priceColorWrapper}>
-                        <Text>{ item.color }</Text>
-                        <Text>${ item.price }</Text>
+                        <Text style={cartScreen ? styles.cartItemText : styles.itemText}>{ item.color }</Text>
+                        <Text style={cartScreen ? styles.cartItemText : styles.itemText}>${ item.price }</Text>
                     </View>                    
                 </View>
             </View>
@@ -53,8 +53,8 @@ const item = ({item, deleteBtn, buyBtn}) => {
                     underlayColor="#bbbbbb"
                     style={styles.deleteFromCartBtn}>
                     <Icon 
-                        style={{ color: 'white', fontSize: 20 }}
-                        name="cart" />
+                        style={{ color: 'white', fontSize: 12 }}
+                        name="close" />
                 </TouchableHighlight>
             ) : null}
         </View>

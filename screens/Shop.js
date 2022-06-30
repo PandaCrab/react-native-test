@@ -9,7 +9,6 @@ import { styles } from '../styles/shopStyles';
 const ShopScreen = () => {
     const [stuffs, setStuffs] = useState([]);
     const [error, setError] = useState(false);
-    const [success, setSuccess] = useState(false);
     const [isLoading, setLoading] = useState(true);
 
     const renderItem = ({item}) => (
@@ -38,7 +37,7 @@ const ShopScreen = () => {
 
     return (
         <View style={styles.container}>
-            {error || success && (
+            {error && (
                 <AlertPopup 
                     error={error}
                     success={success}

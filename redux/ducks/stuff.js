@@ -1,6 +1,7 @@
 const ADD_TO_ORDER = 'stuff/ADD_TO_ORDER';
 const DELETE_FROM_ORDER = 'stuff/DELETE_FROM_ORDER';
 const GET_ORDER_ID = 'stuff/GET_ORDER_ID';
+const CLEAR_CLIENT_ORDER = 'stuff/CLEAR_CLIENT_ORDER';
 
 const initialState = {
     clientOrder: [],
@@ -15,6 +16,9 @@ export default function stuffReducer (state = initialState, action) {
             return { ...state, clientOrder: state.clientOrder.filter(items => items !== action.payload) };
         case GET_ORDER_ID: 
             return {...state, orderId: action.payload};
+        case CLEAR_CLIENT_ORDER: {
+            return {...state, clientOrder: []}
+        }
         default: return state;
     }
 };
@@ -27,7 +31,9 @@ export const inOrder = (item) => ({
 export const getOrderId = id => ({
     type: GET_ORDER_ID,
     payload: id
-})
+});
+
+export const clearOrder = () => ({ type: CLEAR_CLIENT_ORDER });
 
 export const deleteFromOrder = item => ({
     type: DELETE_FROM_ORDER,
