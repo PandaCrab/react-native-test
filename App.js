@@ -14,7 +14,7 @@ import { store } from './redux/store';
 
 import { styles } from './styles/CartStyles';
 
-const cart = () => {
+const Cart = () => {
   const select = useSelector(state => state.order.clientOrder);
 
   const navigation = useNavigation();
@@ -45,7 +45,7 @@ export default function App() {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home" screenOptions={{ headerTitleAlign: 'center', headerRight: cart }}>
+        <Stack.Navigator initialRouteName="Home" screenOptions={{ headerTitleAlign: 'center', headerRight: Cart }}>
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Shop" component={ShopScreen} />
           <Stack.Screen name="ShoppingCart" component={ShoppingCartScreen} />

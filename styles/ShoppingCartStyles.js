@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
     container: {
         paddingTop: 15,
         width: deviceWidth,
-        height: deviceHeight * 0.93,
+        height: deviceHeight * 0.9,
         display: 'flex',
         flexDirection: 'row',
         backgroundColor: 'white'
@@ -60,10 +60,6 @@ export const styles = StyleSheet.create({
         borderRadius: 2,
         borderColor: '#bbbbbb'
     },
-    priceWrapper: {
-        marginRight: 20,
-        height: 150
-    },
     emptyCartScreen: {
         margin: 20,
         height: 400, 
@@ -73,6 +69,7 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
     },
     priceWrapper: {
+        marginRight: 5,
         width: '100%',
         display: 'flex',
         alignItems: 'center'

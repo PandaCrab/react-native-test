@@ -6,7 +6,7 @@ import { deleteFromOrder, inOrder } from '../redux/ducks/stuff';
 
 import { styles } from '../styles/ItemStyles';
 
-const item = ({item, deleteBtn, cartScreen, buyBtn}) => {
+const Item = ({item, deleteBtn, cartScreen, buyBtn}) => {
     const dispatch = useDispatch();
     const select = useSelector(state => state.order.clientOrder);
 
@@ -61,4 +61,4 @@ const item = ({item, deleteBtn, cartScreen, buyBtn}) => {
     );
 };
 
-export default item;
+export default Item;

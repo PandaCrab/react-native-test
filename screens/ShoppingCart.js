@@ -1,3 +1,4 @@
+import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { View, Text, FlatList, Button, TextInput, TouchableHighlight } from 'react-native';
@@ -20,22 +21,29 @@ const ShoppingCartScreen = () => {
         setCart(selector);
     }, [selector]);
 
-    const [total, setTotal] = useState({
+    const [prices, setPrices] = useState({
         subtotal: 0,
         shipping: 10.3,
         taxes: 2.32,
-        total: 0
     });
+
+    const [total, setTotal] = useState(0);
 
     useEffect(() => {
         const addSubtotal = cart.reduce((accumulator, currentValue) => 
             accumulator + currentValue.price, 0);
 
-        setTotal({
-            ...total,
+        setPrices({
+            ...prices,
             subtotal: addSubtotal
         });
     }, [cart]);
+
+    useEffect(() => {
+        const { subtotal, shipping, taxes } = prices;
+
+        setTotal((subtotal + shipping + taxes).toFixed(2))
+    }, [prices])
 
     const handlerChange = (key, value) => {        
         setForm(prev => ({
@@ -111,20 +119,20 @@ const ShoppingCartScreen = () => {
                     <View style={styles.priceWrapper}>
                         <View style={styles.price}>
                             <Text style={styles.priceFor}>Subtotal</Text>
-                            <Text style={styles.priceNumber}>${total.subtotal}</Text>
+                            <Text style={styles.priceNumber}>${prices.subtotal}</Text>
                         </View>
                         <View style={styles.price}>
                             <Text style={styles.priceFor}>Shipping</Text>
-                            <Text style={styles.priceNumber}>${total.shipping}</Text>
+                            <Text style={styles.priceNumber}>${prices.shipping}</Text>
                         </View>
                         <View style={styles.price}>
                             <Text style={styles.priceFor}>Taxes</Text>
-                            <Text style={styles.priceNumber}>${total.taxes}</Text>
+                            <Text style={styles.priceNumber}>${prices.taxes}</Text>
                         </View>
                         <View style={styles.brakeLine} />
                         <View style={styles.price}>
                             <Text style={styles.priceFor}>Total</Text>
-                            <Text style={styles.priceFor}>${total.total}</Text>
+                            <Text style={styles.priceFor}>${total}</Text>
                         </View>
                     </View>
                 </View>

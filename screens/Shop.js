@@ -1,3 +1,4 @@
+import React from 'react';
 import { Text, View, ActivityIndicator, FlatList } from 'react-native';
 import { useEffect, useState } from 'react';
 

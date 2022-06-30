@@ -20,7 +20,7 @@ const AlertPopup = ({ error, success, children }) => {
         }).start();
     };
 
-    fadeOut = () => {
+    const fadeOut = () => {
         Animated.timing(fade.fadeAnimation, {
         toValue: 0,
         duration: 500,

@@ -9,6 +9,7 @@ export const styles = StyleSheet.create({
         height: 250,
         display: 'flex',
         flexDirection: 'column',
+        backgroundColor: 'white',
         borderWidth: 1,
     },
     cartCardWrapper: {
@@ -89,16 +90,6 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: 'green',
-    },
-    addToCartBtn: {
-        marginTop: 5,
-        width: 30,
-        height: 30,
-        borderWidth: 1,
-        borderRadius: 50,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
     },
     deleteFromCartBtn: {
         marginTop: 3,
