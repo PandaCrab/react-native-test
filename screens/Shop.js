@@ -41,7 +41,6 @@ const ShopScreen = () => {
             {error && (
                 <AlertPopup 
                     error={error}
-                    success={success}
                 />
             )}
             {isLoading ? (

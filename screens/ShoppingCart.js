@@ -33,10 +33,10 @@ const ShoppingCartScreen = () => {
         const addSubtotal = cart.reduce((accumulator, currentValue) => 
             accumulator + currentValue.price, 0);
 
-        setPrices({
-            ...prices,
+        setPrices(prev => ({
+            ...prev,
             subtotal: addSubtotal
-        });
+        }));
     }, [cart]);
 
     useEffect(() => {
