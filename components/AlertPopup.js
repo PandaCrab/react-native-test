@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Animated, Text } from 'react-native';
+import { Animated } from 'react-native';
 
-import { styles } from '../styles/AlertPopupStyles';
+import { AlertText, SuccessPopup, ErrorPopup } from '../styles/AlertPopupStyles';
 
 const AlertPopup = ({ error, success, children }) => {
     const [fade, setFade] = useState({
@@ -37,20 +37,15 @@ const AlertPopup = ({ error, success, children }) => {
     }, [fade.popup]);
 
     return (
-        <Animated.View
-            style={ success 
-                ? {
-                    ...styles.successPopup,
-                    opacity: fade.fadeAnimation
-                } : {
-                    ...styles.errorPopup,
-                    opacity: fade.fadeAnimation
-                }}
-        >
+        <Animated.View style={{ opacity: fade.fadeAnimation }}>
             {success ? (
-                <Text style={styles.alertText}>{success}</Text>
+                <SuccessPopup>
+                        <AlertText>{success}</AlertText>
+                </SuccessPopup>
             ) : (
-                <Text style={styles.alertText}>{error}</Text>
+                <ErrorPopup>
+                    <AlertText>{error}</AlertText>
+                </ErrorPopup>
             )}
         </Animated.View>
     );

@@ -1,37 +1,39 @@
-import { StyleSheet } from 'react-native';
+import styled from 'styled-components/native';
 
-export const  styles = StyleSheet.create({
-    errorPopup: {
-        height: 40,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'rgba(255, 0, 0, 0.4)',
-        borderRadius: 8,
-        borderWidth: 1,
-        borderColor: 'red',
-        position: 'absolute',
-        bottom: 20,
-        left: 15,
-        right: 15,
-        zIndex: 1000
-    },
-    successPopup: {
-        height: 40,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'green',
-        borderRadius: 8,
-        borderWidth: 1,
-        borderColor: 'darkgreen',
-        position: 'absolute',
-        bottom: 20,
-        left: 15,
-        right: 15,
-        zIndex: 1000
-    },
-    alertText: {
-        color: 'white'
-    }
-});
+export const ErrorPopup = styled.View`
+    height: 40px;
+    display: flex;
+    justifyContent: center;
+    alignItems: center;
+    backgroundColor: rgba(255; 0; 0; 0.6);
+    borderRadius: 8px;
+    borderWidth: 1px;
+    borderColor: red;
+    opacity: ${({ animOpacity }) => animOpacity || 1};
+    position: absolute;
+    bottom: 20px;
+    left: 15px;
+    right: 15px;
+    zIndex: 1000;
+`;
+
+export const SuccessPopup = styled.View`
+    height: 40px;
+    display: flex;
+    justifyContent: center;
+    alignItems: center;
+    backgroundColor: green;
+    borderRadius: 8px;
+    borderWidth: 1px;
+    borderColor: darkgreen;
+    opacity: ${({ animOpacity }) => animOpacity || 1};
+    position: absolute;
+    bottom: 20px;
+    left: 15px;
+    right: 15px;
+    zIndex: 1000;
+`;
+
+export const AlertText = styled.Text`
+    color: white;
+`;
