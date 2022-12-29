@@ -1,22 +1,25 @@
 import React from 'react';
-import { View, Image, Text, Button } from 'react-native';
+import { Button } from 'react-native';
 
-import { styles } from '../styles/HomeStyles';
+import {
+    Container,
+    LogoContainer,
+    Logo,
+    WelcomText
+} from '../styles/HomeStyles';
 
 const HomeScreen = ({ navigation }) => {
     return (
-        <View style={styles.container}>
-            <View style={styles.logoContainer}>
-            <Image 
-                source={require('../assets/panda-logo-poly.png')}
-                style={styles.logo} />
-            </View>
-            <Text style={styles.welcomText}>Welcom in Panda's shop</Text>
+        <Container>
+            <LogoContainer>
+            <Logo source={require('../assets/panda-logo-poly.png')} />
+            </LogoContainer>
+            <WelcomText>Welcom in Panda's shop</WelcomText>
             <Button 
                 title="Go shopping"
                 onPress={() => navigation.navigate('Shop')}
             />
-        </View>
+        </Container>
     );
 };
 

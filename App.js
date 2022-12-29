@@ -10,6 +10,7 @@ import HomeScreen from './screens/Home';
 import ShopScreen from './screens/Shop';
 import ShoppingCartScreen from './screens/ShoppingCart';
 import SuccessOrderScreen from './screens/SuccessOrderScreen';
+import ProductInfo from './screens/ProductInfo';
 import { store } from './redux/store';
 
 import { styles } from './styles/CartStyles';
@@ -28,16 +29,16 @@ const Cart = () => {
             name="cart" />
         </Text>
       </TouchableHighlight>
-        {select.length ? (
+        {select.length && (
           <View style={styles.badge}>
               <Text style={{ color: 'white', fontSize: 10 }}>
                 { select.length }
               </Text>
           </View>
-        ) : null}
+        )}
     </View>
-  )
-}
+  );
+};
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -45,11 +46,12 @@ export default function App() {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home" screenOptions={{ headerTitleAlign: 'center', headerRight: Cart }}>
+        <Stack.Navigator initialRouteName="Home" screenOptions={{ headerTitleAlign: 'center', headerRight: [Cart, ] }}>
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Shop" component={ShopScreen} />
           <Stack.Screen name="ShoppingCart" component={ShoppingCartScreen} />
           <Stack.Screen name="SuccessOrder" component={SuccessOrderScreen} />
+          <Stack.Screen name="Product" component={ProductInfo} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

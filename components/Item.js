@@ -1,64 +1,131 @@
 import React from 'react';
-import { View, Image, Text, TouchableHighlight } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/EvilIcons';
+import { Image, TouchableWithoutFeedback } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 
 import { deleteFromOrder, inOrder } from '../redux/ducks/stuff';
 
-import { styles } from '../styles/ItemStyles';
+import { 
+    CardWrapper,
+    CartCardWrapper,
+    InfoWrapper,
+    CartInfoWrapper,
+    ItemName,
+    CartItemName,
+    ItemText,
+    CartItemText,
+    PriceColorWrapper,
+    CardInfo,
+    CartCardInfo,
+    AddToCartBtn,
+    DeleteFromCartBtn
+} from '../styles/ItemStyles';
+import StarRating from './StarRating';
 
-const Item = ({item, deleteBtn, cartScreen, buyBtn}) => {
+const Item = ({ item, deleteBtn, cartScreen, buyBtn }) => {
     const dispatch = useDispatch();
     const select = useSelector(state => state.order.clientOrder);
 
-    return (
-        <View key={item.id} style={cartScreen ? styles.cartCardWrapper : styles.cardWrapper}>
-            <View style={cartScreen ? styles.cartInfoWrapper : styles.infoWrapper}>
-                <Image
-                    style={styles.image}
-                    source={{ 
-                        uri: item.imgUrl,
-                        width: cartScreen ? 25 : 100,
-                        height: cartScreen ? 40 : 120
-                    }}
+    const navigation = useNavigation();
+
+    return cartScreen ? (
+        <CartCardWrapper key={item._rid}>
+            <TouchableWithoutFeedback onPress={() => navigation.navigate('Product', { productId: item._id })}>
+                <CartInfoWrapper>
+                    <Image
+                        source={{ 
+                            uri: item.imgUrl,
+                            width: cartScreen ? 25 : 100,
+                            height: cartScreen ? 40 : 120
+                        }}
                     />
-                <View style={cartScreen ? styles.cartCardInfo : styles.cardInfo}>
-                    <Text style={cartScreen ? styles.cartItemName : styles.itemName}>{ item.name }</Text>
-                    <View style={styles.priceColorWrapper}>
-                        <Text style={cartScreen ? styles.cartItemText : styles.itemText}>{ item.color }</Text>
-                        <Text style={cartScreen ? styles.cartItemText : styles.itemText}>${ item.price }</Text>
-                    </View>                    
-                </View>
-            </View>
+                    <CartCardInfo>
+                        <CartItemName s>{ item.name }</CartItemName>
+                        <PriceColorWrapper>
+                            <CartItemText>{ item.color }</CartItemText>
+                            <CartItemText>${ item.price }</CartItemText>
+                        </PriceColorWrapper>                    
+                    </CartCardInfo>
+                </CartInfoWrapper>
+            </TouchableWithoutFeedback>
             { buyBtn ? (
-                <TouchableHighlight 
+                <AddToCartBtn 
                     onPress={() => {
                         dispatch(inOrder(item));
                     }}
                     activeOpacity={0.6}
                     underlayColor="#bbbbbb"
-                    style={select.find(x => x.id === item.id) ?
-                            styles.addToCartBtnFill :
-                            styles.addToCartBtn
-                        }>
+                    fill={select.find(x => x._id === item._id)}
+                >
                     <Icon 
-                        style={{ color: select.find(x => x.id === item.id) ? 'white': 'black', fontSize: 20 }}
-                        name="cart" />
-                </TouchableHighlight>
-            ) : deleteBtn ? (
-                <TouchableHighlight 
+                        style={{ color: select.find(x => x._id === item._id) ? 'white': 'black', fontSize: 20 }}
+                        name="cart"
+                    />
+                </AddToCartBtn>
+            ) : deleteBtn && (
+                <DeleteFromCartBtn 
                     onPress={() => {
                         dispatch(deleteFromOrder(item));
                     }}
                     activeOpacity={0.6}
                     underlayColor="#bbbbbb"
-                    style={styles.deleteFromCartBtn}>
+                >
                     <Icon 
                         style={{ color: 'white', fontSize: 12 }}
-                        name="close" />
-                </TouchableHighlight>
-            ) : null}
-        </View>
+                        name="close"
+                    />
+                </DeleteFromCartBtn>
+            )}
+        </CartCardWrapper>
+    ) : (
+        <CardWrapper key={item._id}>
+            <TouchableWithoutFeedback onPress={() => navigation.navigate('Product', { productId: item._id })}>
+                <InfoWrapper>
+                    <Image
+                        source={{ 
+                            uri: item.imgUrl,
+                            width: cartScreen ? 25 : 100,
+                            height: cartScreen ? 40 : 120
+                        }}
+                    />
+                    <CardInfo>
+                        <ItemName>{ item.name }</ItemName>
+                        <PriceColorWrapper>
+                            <ItemText>{ item.color }</ItemText>
+                            <ItemText>${ item.price }</ItemText>
+                            <StarRating product={item} />
+                        </PriceColorWrapper>                    
+                    </CardInfo>
+                </InfoWrapper>
+            </TouchableWithoutFeedback>
+            { buyBtn ? (
+                <AddToCartBtn 
+                    onPress={() => dispatch(inOrder(item))}
+                    activeOpacity={0.6}
+                    underlayColor="#bbbbbb"
+                    fill={select.find(x => x._id === item._id)}
+                >
+                    <Icon 
+                        style={{ color: select.find(x => x._id === item._id) ? 'white': 'black', fontSize: 20 }}
+                        name="cart"
+                    />
+                </AddToCartBtn>
+            ) : deleteBtn && (
+                <DeleteFromCartBtn 
+                    onPress={() => {
+                        dispatch(deleteFromOrder(item));
+                    }}
+                    activeOpacity={0.6}
+                    underlayColor="#bbbbbb"
+                >
+                    <Icon 
+                        style={{ color: 'white', fontSize: 12 }}
+                        name="close"
+                    />
+                </DeleteFromCartBtn>
+            )}
+        </CardWrapper>
     );
 };
 
