@@ -1,15 +1,29 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
-import { View, Text, FlatList, Button, TextInput, TouchableHighlight } from 'react-native';
+import { Text, Button } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Item from '../components/Item';
 import { clearOrder } from '../redux/ducks/stuff';
 
-import { styles } from '../styles/ShoppingCartStyles';
+import {
+    OrderContainer,
+    OrderInfo,
+    ShippingInfo,
+    InputField,
+    InputTitle,
+    PriceWrapper,
+    PriceFor,
+    Price,
+    PriceNumber,
+    StuffContainer,
+    BrakeLine,
+    SubmitBtn,
+    EmptyCartScreen
+} from '../styles/OrderStyles';
 
-const ShoppingCartScreen = () => {
+const OrderScreen = () => {
     const [form, setForm] = useState({});
     const [cart, setCart] = useState([]);
 
@@ -58,92 +72,89 @@ const ShoppingCartScreen = () => {
 
     return (
         cart.length ? (
-            <View style={styles.container}>
-                <View style={styles.shippingInfo}>
+            <OrderContainer>
+                <ShippingInfo>
                     <Text>Fill shipping info</Text>
-                    <TextInput
+                    <InputField
                         autoCapitalize='words'
                         name="fullName"
                         onChangeText={(text) => handlerChange('fullName', text)}
                         value={form.fullName}
                         placeholder="Your Full Name..." 
-                        style={styles.inputField} />
-                    <TextInput
+                    />
+                    <InputField
                         name="phone"
                         onChange={(text) => handlerChange('phone', text)}
                         value={form.phone}
                         placeholder="Your deytime phone..." 
                         keyboardType='numeric'
-                        style={styles.inputField} />
-                    <TextInput
+                    />
+                    <InputField
                         name="street"
                         onChangeText={(text) => handlerChange('street', text)}
                         value={form.street}
                         placeholder="Street" 
-                        style={styles.inputField} />
-                    <TextInput
+                    />
+                    <InputField
                         name="city"
                         onChangeText={(text) => handlerChange('city', text)}
                         value={form.city}
                         placeholder="City" 
-                        style={styles.inputField} />
-                    <TextInput
+                    />
+                    <InputField
                         name="country"
                         onChangeText={(text) => handlerChange('country', text)}
                         value={form.country}
-                        placeholder="" 
-                        style={styles.inputField} />
-                    <TextInput
+                        placeholder="Country"
+                    />
+                    <InputField
                         name="zip"
                         onChangeText={(text) => handlerChange('zip', text)}
                         value={form.zip}
                         placeholder="ZIP" 
-                        style={styles.inputField} />
-                    <TouchableHighlight 
-                        style={styles.submitBtn} 
-                        onPress={() => {
-                            dispatch(clearOrder());
-                            navigation.navigate('SuccessOrder');
-                        }}>
+                    />
+                    <SubmitBtn onPress={() => {
+                        dispatch(clearOrder());
+                        navigation.navigate('SuccessOrder');
+                    }}>
                             <Text style={{ color: 'white' }}>Submit Order</Text>
-                        </TouchableHighlight>
-                </View>
-                <View style={styles.orderInfo}>
-                    <FlatList 
-                        style={styles.stuffContainer}
+                    </SubmitBtn>
+                </ShippingInfo>
+                <OrderInfo>
+                    <StuffContainer
                         data={cart} 
                         renderItem={renderItem}
                         keyExtractor={item => item.id}
                     />
-                    <View style={styles.brakeLine} />
-                    <View style={styles.priceWrapper}>
-                        <View style={styles.price}>
-                            <Text style={styles.priceFor}>Subtotal</Text>
-                            <Text style={styles.priceNumber}>${prices.subtotal}</Text>
-                        </View>
-                        <View style={styles.price}>
-                            <Text style={styles.priceFor}>Shipping</Text>
-                            <Text style={styles.priceNumber}>${prices.shipping}</Text>
-                        </View>
-                        <View style={styles.price}>
-                            <Text style={styles.priceFor}>Taxes</Text>
-                            <Text style={styles.priceNumber}>${prices.taxes}</Text>
-                        </View>
-                        <View style={styles.brakeLine} />
-                        <View style={styles.price}>
-                            <Text style={styles.priceFor}>Total</Text>
-                            <Text style={styles.priceFor}>${total}</Text>
-                        </View>
-                    </View>
-                </View>
-            </View>
+                    <BrakeLine />
+                    <PriceWrapper>
+                        <Price>
+                            <PriceFor>Subtotal</PriceFor>
+                            <PriceNumber>${prices.subtotal}</PriceNumber>
+                        </Price>
+                        <Price>
+                            <PriceFor>Shipping</PriceFor>
+                            <PriceNumber>${prices.shipping}</PriceNumber>
+                        </Price>
+                        <Price>
+                            <PriceFor>Taxes</PriceFor>
+                            <PriceNumber>${prices.taxes}</PriceNumber>
+                        </Price>
+                        <BrakeLine/>
+                        <Price>
+                            <PriceFor>Total</PriceFor>
+                            <PriceFor>${total}</PriceFor>
+                        </Price>
+                    </PriceWrapper>
+                </OrderInfo>
+            </OrderContainer>
         ) : (
-            <View style={styles.emptyCartScreen}>
+            <EmptyCartScreen>
                 <Text>Your cart is empty</Text>
                 <Button title="Visit shop" onPress={() => navigation.navigate('Shop')} />
-            </View>
+            </EmptyCartScreen>
         )  
     );
 };
 
-export default ShoppingCartScreen;
+export default OrderScreen;
