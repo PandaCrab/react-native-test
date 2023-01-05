@@ -4,7 +4,7 @@ import { Image, TouchableWithoutFeedback } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
-import { deleteFromOrder, inOrder } from '../redux/ducks/stuff';
+import { deleteFromOrder, inOrder } from '../redux/ducks/order';
 
 import { 
     CardWrapper,
@@ -25,7 +25,7 @@ import StarRating from './StarRating';
 
 const Item = ({ item, deleteBtn, cartScreen, buyBtn }) => {
     const dispatch = useDispatch();
-    const select = useSelector(state => state.order.clientOrder);
+    const select = useSelector((state) => state.order.clientOrder);
 
     const navigation = useNavigation();
 

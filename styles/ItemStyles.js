@@ -88,7 +88,7 @@ export const AddToCartBtn = styled.TouchableHighlight`
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: ${({ fill }) => fill ? 'green' : 'none'};
+    background-color: ${(props) => props.fill ? 'green' : 'none'};
 `;
 
 export const DeleteFromCartBtn = styled.TouchableHighlight`
