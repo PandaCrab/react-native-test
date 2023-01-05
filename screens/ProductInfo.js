@@ -16,6 +16,7 @@ import {
     ProductDescription
 } from '../styles/ProductInfoStyles';
 import { inOrder } from '../redux/ducks/stuff';
+import StarRating from '../components/StarRating';
 
 const ProductInfo = ({ route, navigation }) => {
     const [product, setProduct] = useState([]);
@@ -63,12 +64,11 @@ const ProductInfo = ({ route, navigation }) => {
                             <BoldText>Quantity:</BoldText>
                             <Text>{product.quantity}</Text>
                         </Row>
-                        <Row>
-                            <BoldText>Rating:</BoldText>
-                            <Text>{calculateRating(product) ?? '0'}</Text>
-                        </Row>
-
                     </InfoWrapper>
+                </Row>
+                <Row>
+                    <BoldText>{calculateRating(product) ?? '0'}</BoldText>
+                    <StarRating product={product} />
                 </Row>
                 <ProductDescription>
                     { product.description }

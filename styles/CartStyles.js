@@ -1,7 +1,10 @@
 import styled from 'styled-components/native';
 
 export const CartWrapper = styled.TouchableHighlight`
+    margin: auto;
+    margin-right: 10px;
     display: flex;
+    align-items: center;
     justify-content: center;
     border-radius: 50px;
     opacity: .3;

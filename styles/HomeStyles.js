@@ -5,9 +5,9 @@ const deviceHeight = Dimensions.get('window').height;
 
 export const Container = styled.View`
     height: ${deviceHeight.toFixed(2)}px;
-    fisplay: flex;
+    display: flex;
     flex-direction: column;
-    aliggn-items: center;
+    align-items: center;
     justify-content: center;
 `;
 

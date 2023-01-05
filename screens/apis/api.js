@@ -52,3 +52,35 @@ export const rateProduct = async (id, rating) => {
         console.log(err);
     }
 };
+
+//user apis
+export const getUserInfo = async (id) => {
+    try {
+        const res = await fetchFunc(url + `/user/${id}`, 'GET');
+
+        return res.json();
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+//Auth and registration apis
+export const loginUser = async (credentials) => {
+    try {
+        const res = await fetchFunc(url + '/auth', 'POST', credentials);
+
+        return res.json();
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+export const registerUser = async (info) => {
+    try {
+        const res = await fetchFunc(url + '/registration', 'POST', info);
+
+        return res.json();
+    } catch (err) {
+        console.log(err);
+    }
+};
