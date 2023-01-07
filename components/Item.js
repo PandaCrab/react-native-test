@@ -1,10 +1,13 @@
 import React from 'react';
-import Icon from 'react-native-vector-icons/EvilIcons';
+import Icon from 'react-native-vector-icons/Entypo';
 import { Image, TouchableWithoutFeedback } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
+import StarRating from './StarRating';
 import { deleteFromOrder, inOrder } from '../redux/ducks/order';
+import { getUserInfo, getUserLikes } from '../screens/apis/api';
+import { getInfo } from '../redux/ducks/user';
 
 import { 
     CardWrapper,
@@ -18,17 +21,41 @@ import {
     PriceColorWrapper,
     CardInfo,
     CartCardInfo,
-    AddToCartBtn,
+    BtnWrapper,
+    CardBtn,
     DeleteFromCartBtn
 } from '../styles/ItemStyles';
-import StarRating from './StarRating';
+
 
 const Item = ({ item, deleteBtn, cartScreen, buyBtn }) => {
     const dispatch = useDispatch();
     const select = useSelector((state) => state.order.clientOrder);
+    const user = useSelector((state) => state.user.info);
 
     const navigation = useNavigation();
 
+    const takeUserInfo = async () => {
+        const info = await getUserInfo(user._id);
+
+        dispatch(getInfo(info));
+    };
+
+    const onLike = async (productId) => {
+        try {
+            const postLikes = await getUserLikes(user._id, productId);
+console.log(postLikes.message)
+            if (postLikes.message === 'like') {
+                takeUserInfo();
+            } else if (postLikes.message === 'unlike') {
+                takeUserInfo();
+            } else{ 
+                console.log('oops')
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    };
+console.log(user.likes)
     return cartScreen ? (
         <CartCardWrapper key={item._rid}>
             <TouchableWithoutFeedback onPress={() => navigation.navigate('Product', { productId: item._id })}>
@@ -50,19 +77,38 @@ const Item = ({ item, deleteBtn, cartScreen, buyBtn }) => {
                 </CartInfoWrapper>
             </TouchableWithoutFeedback>
             { buyBtn ? (
-                <AddToCartBtn 
-                    onPress={() => {
-                        dispatch(inOrder(item));
-                    }}
-                    activeOpacity={0.6}
-                    underlayColor="#bbbbbb"
-                    fill={select.find(x => x._id === item._id)}
-                >
-                    <Icon 
-                        style={{ color: select.find(x => x._id === item._id) ? 'white': 'black', fontSize: 20 }}
-                        name="cart"
-                    />
-                </AddToCartBtn>
+                <BtnWrapper>
+                    {user?._id && (
+                        <CardBtn
+                            style={{ marginRight: 5 }}
+                            onPress={() => onLike(item._id)}
+                            activeOpacity={1}
+                            underlayColor="#bbbbbb"
+                            fill={user?.likes.find((x) => x._id === item._id) ? 'red' : 'white'}
+                        >
+                            <Icon
+                                style={{
+                                    color:  user?.likes.find((x) => x._id === item._id) ? 'white' : 'black',
+                                    fontSize: 20
+                                }}
+                                name="heart"
+                            />
+                        </CardBtn>
+                    )}
+                    <CardBtn 
+                        onPress={() => {
+                            dispatch(inOrder(item));
+                        }}
+                        activeOpacity={0.6}
+                        underlayColor="#bbbbbb"
+                        fill={select.find(x => x._id === item._id) ? 'green' : 'white'}
+                    >
+                        <Icon 
+                            style={{ color: select.find(x => x._id === item._id) ? 'white': 'black', fontSize: 20 }}
+                            name="shopping-cart"
+                        />
+                    </CardBtn>
+                </BtnWrapper>
             ) : deleteBtn && (
                 <DeleteFromCartBtn 
                     onPress={() => {
@@ -73,7 +119,7 @@ const Item = ({ item, deleteBtn, cartScreen, buyBtn }) => {
                 >
                     <Icon 
                         style={{ color: 'white', fontSize: 12 }}
-                        name="close"
+                        name="trash"
                     />
                 </DeleteFromCartBtn>
             )}
@@ -100,17 +146,36 @@ const Item = ({ item, deleteBtn, cartScreen, buyBtn }) => {
                 </InfoWrapper>
             </TouchableWithoutFeedback>
             { buyBtn ? (
-                <AddToCartBtn 
-                    onPress={() => dispatch(inOrder(item))}
-                    activeOpacity={0.6}
-                    underlayColor="#bbbbbb"
-                    fill={select.find(x => x._id === item._id)}
-                >
-                    <Icon 
-                        style={{ color: select.find(x => x._id === item._id) ? 'white': 'black', fontSize: 20 }}
-                        name="cart"
-                    />
-                </AddToCartBtn>
+                <BtnWrapper>
+                    {user?._id && (
+                        <CardBtn
+                            style={{ marginRight: 5 }}
+                            onPress={() => onLike(item._id)}
+                            activeOpacity={1}
+                            underlayColor="#bbbbbb"
+                            fill={user?.likes.find((x) => x._id === item._id) ? 'red' : 'white'}
+                        >
+                            <Icon
+                                style={{
+                                    color: user?.likes.find((x) => x._id === item._id) ? 'white' : 'black',
+                                    fontSize: 20
+                                }}
+                                name="heart"
+                            />
+                        </CardBtn>
+                    )}
+                    <CardBtn 
+                        onPress={() => dispatch(inOrder(item))}
+                        activeOpacity={1}
+                        underlayColor="#bbbbbb"
+                        fill={select.find(x => x._id === item._id) ? 'green' : 'white'}
+                    >
+                        <Icon 
+                            style={{ color: select.find(x => x._id === item._id) ? 'white': 'black', fontSize: 20 }}
+                            name="shopping-cart"
+                        />
+                    </CardBtn>
+                </BtnWrapper>
             ) : deleteBtn && (
                 <DeleteFromCartBtn 
                     onPress={() => {
@@ -121,7 +186,7 @@ const Item = ({ item, deleteBtn, cartScreen, buyBtn }) => {
                 >
                     <Icon 
                         style={{ color: 'white', fontSize: 12 }}
-                        name="close"
+                        name="trash"
                     />
                 </DeleteFromCartBtn>
             )}

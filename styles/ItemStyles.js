@@ -79,7 +79,15 @@ export const CartCardInfo = styled.View`
     justify-content: space-between;
 `;  
 
-export const AddToCartBtn = styled.TouchableHighlight`
+export const BtnWrapper = styled.View`
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+`;
+
+export const CardBtn = styled.TouchableHighlight`
     margin-top: 5px;
     width: 30px;
     height: 30px;
@@ -88,7 +96,7 @@ export const AddToCartBtn = styled.TouchableHighlight`
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: ${(props) => props.fill ? 'green' : 'none'};
+    background-color: ${(props) => props.fill};
 `;
 
 export const DeleteFromCartBtn = styled.TouchableHighlight`

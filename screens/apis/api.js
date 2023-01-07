@@ -54,6 +54,16 @@ export const rateProduct = async (id, rating) => {
 };
 
 //user apis
+export const getUserLikes = async (userId, stuffId) => {
+    try {
+        const res = await fetchFunc(url + '/user', 'PUT', { userId, stuffId });
+
+        return res.json();
+    } catch (err) {
+        console.log(err);
+    }
+};
+
 export const getUserInfo = async (id) => {
     try {
         const res = await fetchFunc(url + `/user/${id}`, 'GET');

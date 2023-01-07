@@ -23,12 +23,12 @@ const AuthScreen = ({ navigation}) => {
     const onLogin = async () => {
         try {
             const res = await loginUser({ username: username.toLowerCase(), password });
-
+            
             if (res.token) {
                 await AsyncStorage.setItem('USER_TOKEN', res.token);
 
                 dispatch(getToken(res.token));
-                dispatch(getInfo(res.info));
+                dispatch(getInfo(res.user));
 
                 navigation.navigate('Home')
             } else {
@@ -63,14 +63,21 @@ const AuthScreen = ({ navigation}) => {
                 </Text>
             )}
             <BtnWrapper>
-                <Btn
-                    onPress={() => navigation.navigate('Profile Menu')}
-                    title="Sign Up"
-                />
-                <Btn
-                    onPress={() => onLogin()}
-                    title="Log In"
-                />
+                <Btn 
+                    style={{ marginRight: 20 }}
+                    onPress={() => navigation.navigate('Registration')} 
+                    underlayColor="#bbbbbb"
+                    activeOpacity={1}
+                >
+                    <Text>
+                        Sign up
+                    </Text>
+                </Btn>
+                <Btn onPress={() => onLogin()} underlayColor="#bbbbbb" activeOpacity={1}>
+                    <Text>
+                        Log in
+                    </Text>
+                </Btn>
             </BtnWrapper>
         </AuthContainer>
     );

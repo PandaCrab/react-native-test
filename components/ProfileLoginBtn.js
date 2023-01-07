@@ -57,7 +57,7 @@ const ProfileLoginBtn = () => {
 
     useEffect(() => {
         setPhoto(user.info?.photo);
-    }, [user.info]);
+    }, [user]);
 
     useEffect(() => {
         if (token) {
@@ -82,7 +82,11 @@ const ProfileLoginBtn = () => {
     return (
         <Text>
             {loggedIn ? (
-                <TouchableHighlight>
+                <TouchableHighlight 
+                    onPress={() => navigation.navigate('Profile Menu')}
+                    underlayColor="#bbbbbb"
+                    activeOpacity={1}
+                >
                     <PhotoWrapper>
                         {photo ? (
                             <Image
@@ -108,10 +112,14 @@ const ProfileLoginBtn = () => {
                     </PhotoWrapper>
                 </TouchableHighlight>
             ) : (
-                <TouchableHighlight onPress={() => navigation.navigate('Login')}>
+                <TouchableHighlight
+                    onPress={() => navigation.navigate('Login')}
+                    underlayColor="#bbbbbb"
+                    activeOpacity={1}
+                >
                     <IconWrapper>
                         <Icon 
-                            style={{ color: 'black', fontSize: 16 }}
+                            style={{ color: 'black', fontSize: 26}}
                             name='login'
                         />
                     </IconWrapper>

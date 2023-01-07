@@ -1,8 +1,8 @@
 import styled from 'styled-components/native';
 
-export const IconWrapper = styled.Text`
-    width: 20px;
-    height: 20px;
+export const IconWrapper = styled.View`
+    width: 30px;
+    height: 30px;
     display: flex;
     align-items: center;
     justify-content: center;

@@ -16,7 +16,7 @@ export const AuthContainer = styled.View`
 export const Input = styled.TextInput`
     margin-bottom: 20px;
     padding: 6px 12px;
-    width: 100%;
+    width: 80%;
     border: 1px solid #bbbbbb;
     border-radius: 5px;
     background-color: white;
@@ -30,10 +30,12 @@ export const BtnWrapper = styled.View`
     justify-content: center;
 `;
 
-export const Btn = styled.Button`
-    margin-right: 20px;
+export const Btn = styled.TouchableHighlight`
     padding: 6px 12px;
     width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border: 1px solid;
     border-radius: 5px;
 `;
